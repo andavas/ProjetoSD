@@ -4,18 +4,20 @@ import java.io.*;
 import java.net.*;
 
 class FileConnection implements Runnable {
-	
+
 	private Socket socket;
 	private String nomeArquivo;
-	
-	
+
 	public FileConnection(Socket newSocket) {
 		socket = newSocket;
 
 	}
-	
+
 	public void run() {
 		try {
+			BufferedReader request = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			nomeArquivo = request.readLine();
+			
 			System.out.println("Solicitando arquivo \"" + nomeArquivo + "\"");
 
 			File ptrArquivo = new File(nomeArquivo);
@@ -30,27 +32,76 @@ class FileConnection implements Runnable {
 			System.out.println("Enviado!");
 			socket.close();
 			System.out.println("Conexão Finalizada");
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 }
+
+class ListenConnection implements Runnable {
+	/* 
+	 * Vai escutar as solicitações UDP broadcast
+	 * que vierem do servidor principal
+	 */
+	private int porta;
+	
+	public ListenConnection(int porta) {
+		this.porta = porta;
+	}
+	
+	@Override
+	public void run() {
+
+		try (DatagramSocket serverSocket = new DatagramSocket(porta)) {
+			byte[] receiveData = new byte[1024];
+			byte[] sendData = new byte[1024];
+			 
+			while (true) {
+				DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+				System.out.println("Aguardando solicitação");
+				serverSocket.receive(receivePacket); // recebe broadcast UDP do servidor principal 
+				String filename = new String(receivePacket.getData(), 0, receivePacket.getLength());
+				System.out.println("Verificando se arquivo existe no disco");
+				if (new File(filename).exists()) // se o ponteiro do arquivo apontar pra um arquivo existente no disco
+				{
+					InetAddress IPAddress = receivePacket.getAddress();   // pega o ip do servidor principal
+					int port = receivePacket.getPort();					  // pega a porta do servidor principal
+					String identification = IPAddress.getHostName();      // pega o nome do servidor de arquivos
+					sendData = identification.getBytes(); 
+					System.out.println("Reenviando!");
+					DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
+					serverSocket.send(sendPacket);      // devolve para o servidor principal via UDP
+				}
+				else {
+					System.out.println("Arquivo não encontrado");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace(); 
+		}
+	}
+}
+
+
 
 
 public class ServidorDeArquivos {
 
 	public static void main(String[] args) {
 		int timeout = 120 * 1000; // em milissegundos
-		int porta = 9999;
+		int portaArq = 9999;
+		int portaComunicacao = 9876;
+		System.out.println("Servidor de arquivos");
 		
-		try (ServerSocket arqSocket = new ServerSocket(porta)) {
+		Thread listener = new Thread(new ListenConnection(portaComunicacao));
+		listener.start();
+		
+		try (ServerSocket arqSocket = new ServerSocket(portaArq)) {
 			arqSocket.setSoTimeout(timeout);
-			System.out.println("Servidor de arquivos");
 			while (true) {
-				System.out.println("Aguardando conexão");
-				Thread c = new Thread(new Connection(arqSocket.accept()));
+				System.out.println("Aguardando conexão de transferência de arquivos");
+				Thread c = new Thread(new FileConnection(arqSocket.accept()));
 				c.start();
 			}
 			
