@@ -1,6 +1,7 @@
 package projeto;
 
 import java.net.*;
+import java.util.concurrent.TimeUnit;
 import java.io.*;
 
 class Connection implements Runnable {
@@ -75,12 +76,13 @@ class Connection implements Runnable {
 					else 
 						break;
 				}*/
-				System.out.println("Servidores encontrados:"+fileServersCount);
+				System.out.println("Servidores encontrados: "+fileServersCount);
 				// envia a quantidade de servidores de arquivos encontrados
 				DataOutputStream response = new DataOutputStream(connectionSocket.getOutputStream());
-				response.writeBytes(Integer.toString(fileServersCount)+"&");
+				response.writeInt(fileServersCount);
+				//response.writeBytes(Integer.toString(fileServersCount)+"&");
 				// envia os nomes dos servidores encontrados
-				
+				TimeUnit.MILLISECONDS.sleep(2000);
 				for (int i = 0; i < fileServersCount; i++) {
 					response.write(infoFileServers[i].getBytes());
 					System.out.println(infoFileServers[i]);

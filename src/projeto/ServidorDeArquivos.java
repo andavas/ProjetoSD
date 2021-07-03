@@ -22,7 +22,7 @@ class FileConnection implements Runnable {
 			
 			System.out.println("Solicitando arquivo \"" + nomeArquivo + "\"");
 
-			File ptrArquivo = new File(nomeArquivo);
+			File ptrArquivo = new File(caminho+"/"+nomeArquivo);
 			FileInputStream fis = new FileInputStream(ptrArquivo);
 			DataOutputStream response = new DataOutputStream(socket.getOutputStream());
 			byte[] arqBytes = new byte[(int) ptrArquivo.length()];

@@ -13,45 +13,40 @@ public class Cliente {
 		String caminhoDestino = "/home/andavas/prog/2020.2/SD"; // destino do arquivo
 		String ipServidor = "127.0.0.1";
 		int portaServidor = 8888; // substituir pela porta do servidor de arquivo
-		
+		int portaTCPServidorArquivo = 9999;
 		try {
 			
 			// conectar ao servidor central
 			Socket clientSocket = new Socket(ipServidor, portaServidor);
 			DataOutputStream request = new DataOutputStream(clientSocket.getOutputStream());
 			request.writeBytes(nomeArquivo + '\n');
-			
+
 			BufferedReader response = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-			String respostaServidor = response.readLine(); // recebe a quantidade de servidores de arquivo disponíveis
-			
-			respostaServidor = respostaServidor.substring(0,respostaServidor.indexOf("&")); // gambiarra para limpar lixo
-			
-			int fileServersCount = Integer.parseInt(respostaServidor);
+			DataInputStream sdis = new DataInputStream(clientSocket.getInputStream());
+			int fileServersCount = sdis.readInt();
+
 			String [] fileServersList = new String[fileServersCount];
+			
 			
 			System.out.println("Servidores encontrados "+fileServersCount);
 			//criar um for para receber os servidores de arquivo disponíveis
-			for (int i = 0; i < fileServersCount; i++) {
-				response = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-				fileServersList[i] = response.readLine();
-				System.out.println(fileServersList[i]); // descobrir por que isso aqui está retornando nulo
+			
+			if (fileServersCount > 0)
+			{
+
+				for (int i = 0; i < fileServersCount; i++) {
+					fileServersList[i] = response.readLine();
+					System.out.println(fileServersList[i]); // descobrir por que isso aqui está retornando nulo
+				}
+				
+				if (fileServersCount == 1) {
+					receberArquivo(fileServersList[0],portaTCPServidorArquivo,nomeArquivo);
+				} else { //usuário clica no servidor de arquivos que ele quer
+					System.out.println("Else");
+					receberArquivo(fileServersList[0],portaTCPServidorArquivo,nomeArquivo); 
+				}
 			}
-			
 			clientSocket.close();
-			
-			/*
-			// estabelece conexão com servidores de arquivo 
-			Socket fileSocket = new Socket(ipDestino, portaDestino);
-			DataOutputStream fileRequest = new DataOutputStream(clientSocket.getOutputStream());
-			request.writeBytes(nomeArquivo + '\n');
-			// aguardando mensagem de retorno do servidor de arquivos
-			InputStream fileResponse = clientSocket.getInputStream();
-			byte[] rawArq = response.readAllBytes();
-			FileOutputStream fos = new FileOutputStream(caminhoDestino+"/"+nomeArquivo); // substitua "/" por "\\" no Windows
-			fos.write(rawArq);
-			fos.close();
-			clientSocket.close();
-			*/
 		}
 		catch(OutOfMemoryError e) {
 			System.err.println("Eita, o arquivo é muito grande!");
@@ -59,5 +54,31 @@ public class Cliente {
 		catch(Exception e){
 			e.printStackTrace();
 		}
+	
+	}
+
+	public static void receberArquivo(String IPServidorArquivo, int portaServidorArquivo, String nomeArquivo) {
+		// estabelece conexão com servidores de arquivo 
+		try {
+			System.out.println("Solicitando arquivo ao servidor...");
+			System.out.println("IP: "+IPServidorArquivo);
+			System.out.println("Porta: "+portaServidorArquivo);
+			Socket fileSocket = new Socket(IPServidorArquivo, portaServidorArquivo);
+			DataOutputStream fileRequest = new DataOutputStream(fileSocket.getOutputStream());
+			fileRequest.writeBytes(nomeArquivo + '\n');
+			// aguardando mensagem de retorno do servidor de arquivos
+			InputStream fileResponse = fileSocket.getInputStream();
+			byte[] rawArq = fileResponse.readAllBytes();
+			FileOutputStream fos = new FileOutputStream(nomeArquivo); // substitua "/" por "\\" no Windows
+			fos.write(rawArq);
+			System.out.println("Recebido!");
+			fos.close();
+			fileSocket.close();
+		} catch (IOException e) {
+			System.err.println("Não foi possível criar o arquivo");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 }
