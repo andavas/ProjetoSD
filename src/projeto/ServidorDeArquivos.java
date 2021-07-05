@@ -33,7 +33,6 @@ class FileConnection implements Runnable {
 			response.write(arqBytes);
 			System.out.println("Enviado!");
 			socket.close();
-			System.out.println("Conexão Finalizada");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -72,11 +71,13 @@ class ListenConnection implements Runnable {
 				{
 					InetAddress IPAddress = receivePacket.getAddress();   // pega o ip do servidor principal
 					int port = receivePacket.getPort();					  // pega a porta do servidor principal
-					String identification = IPAddress.getHostName();      // pega o nome do servidor de arquivos
+					String identification = InetAddress.getLocalHost().getHostName()+"&"+IPAddress.getHostName()+"\n";      // pega o nome do servidor de arquivos
+					
 					sendData = identification.getBytes(); 
 					System.out.println("Reenviando!");
 					DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
 					serverSocket.send(sendPacket);      // devolve para o servidor principal via UDP
+					System.out.println("Enviado!");
 				}
 				else {
 					System.out.println("Arquivo não encontrado");
@@ -97,7 +98,7 @@ public class ServidorDeArquivos {
 		int timeout = 120 * 1000; // em milissegundos
 		int portaArq = 9999;
 		int portaComunicacao = 9876;
-		String caminho = "/media/Dados/Imagens"; // caminho padrão do servidor de arquivos
+		String caminho = "/media/Dados/Vídeos/Date A Live 3"; // caminho padrão do servidor de arquivos
 		System.out.println("Servidor de arquivos");
 		
 		Thread listener = new Thread(new ListenConnection(portaComunicacao,caminho));

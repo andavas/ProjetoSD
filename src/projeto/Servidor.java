@@ -1,22 +1,12 @@
 package projeto;
 
 import java.net.*;
-import java.util.concurrent.TimeUnit;
 import java.io.*;
 
 class Connection implements Runnable {
 
 	private Socket connectionSocket;
-	private String caminho;
 	private String nomeArquivo;
-
-	public String getCaminho() {
-		return caminho;
-	}
-
-	public String getNomeArquivo() {
-		return nomeArquivo;
-	}
 
 	public Connection(Socket newSocket) {
 		connectionSocket = newSocket;
@@ -38,59 +28,49 @@ class Connection implements Runnable {
 			System.out.println("Verificando nos servidores de arquivo");
 
 			// solicitação UDP para todos os servidores de arquivo
-
 			int timeout = 10 * 1000;
 			DatagramSocket requestSocket = new DatagramSocket();
 			requestSocket.setSoTimeout(timeout);
 			InetAddress IPAddress = InetAddress.getByName("192.168.1.255");
+			
+			// sendData contém a string com o nome do arquivo em binário
 			byte[] sendData = nomeArquivo.getBytes();
+			// receiveData contém o nome e o ip do servidor de arquivos, separados por '&'
 			byte[] receiveData = new byte[1024];
-
+			
 			DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, 9876);
 			DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
 
 			// envia broadcast para todos os servidores de arquivo da rede
-			// receivePacket.getAddress(); // ip da máquina
 			requestSocket.send(sendPacket);
 
-			String[] infoFileServers = new String[1000];
+			String[] infoFileServers = new String[1000]; // guarda a lista crua de servidores de arquivos
 			int fileServersCount  = 0;
 			try {
 				while (true) {
-					// receber solicitações de todos os servidores de arquivo da rede que possuem o
-					// arquivo do cliente
-					requestSocket.receive(receivePacket);
+					// recebe solicitações de todos os servidores de arquivo da rede que possuem o arquivo do cliente
+					requestSocket.receive(receivePacket); 
 					requestSocket.setSoTimeout(timeout); // reinicia o tempo
 					String receive = new String(receivePacket.getData(), 0, receivePacket.getLength());
-					System.out.println(receive);
 					infoFileServers[fileServersCount] = receive; // salva o nome do servidor de arquivos num array
 					fileServersCount++;
 				}
 
 			} catch (SocketTimeoutException e) { // ao final de 10 segundos
-				/*// conta os servidores de arquivos encontrados
-				int fileServersCount = 0;
-				for (int i = 0; i < infoFileServers.length; i++) {
-					if (infoFileServers[i] != null) 
-						fileServersCount++;
-					else 
-						break;
-				}*/
 				System.out.println("Servidores encontrados: "+fileServersCount);
 				// envia a quantidade de servidores de arquivos encontrados
 				DataOutputStream response = new DataOutputStream(connectionSocket.getOutputStream());
 				response.writeInt(fileServersCount);
-				//response.writeBytes(Integer.toString(fileServersCount)+"&");
+				
 				// envia os nomes dos servidores encontrados
-				TimeUnit.MILLISECONDS.sleep(2000);
+				//TimeUnit.MILLISECONDS.sleep(2000);
 				for (int i = 0; i < fileServersCount; i++) {
 					response.write(infoFileServers[i].getBytes());
-					System.out.println(infoFileServers[i]);
 				}
 				// fecha conexões
 				requestSocket.close();
 				connectionSocket.close();
-				System.out.println("Conexão Finalizada");
+				System.out.println("Pronto!");
 
 			}
 		} catch (Exception e) {
