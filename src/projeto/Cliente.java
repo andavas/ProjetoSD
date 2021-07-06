@@ -3,15 +3,33 @@ package projeto;
 import java.io.*;
 import java.net.*;
 
-public class Cliente {
+class Cliente {
+	
+	private String nomeArquivo = "Date_A_Live_3_01_Boteco-Anbient.mkv"; // nome do arquivo com extensão
+	private String ipServidor = "127.0.0.1";
+	private int portaServidor = 8888; 
+	private int portaTCPServidorArquivo = 9999;
+	
+	public Cliente(){
+		run();
+	}
+	
+	
+	public Cliente(String nomeArquivo, String ipServidor, int portaServidor, int portaTCPServidorArquivo) {
+		this.nomeArquivo = nomeArquivo;
+		this.ipServidor = ipServidor;
+		this.portaServidor = portaServidor;
+		this.portaTCPServidorArquivo = portaTCPServidorArquivo;
+		run();
+	}
 
-	public static void main(String args[]) {
+
+
+
+	private void run() {
+		
 		// seleção do arquivo
 		//String caminhoDestino = "/home/andavas/prog/2020.2/SD"; // destino do arquivo
-		String nomeArquivo = "Date_A_Live_3_01_Boteco-Anbient.mkv"; // nome do arquivo com extensão
-		String ipServidor = "127.0.0.1";
-		int portaServidor = 8888; 
-		int portaTCPServidorArquivo = 9999;
 		try {
 			
 			// conectar ao servidor central
@@ -42,10 +60,10 @@ public class Cliente {
 				}
 				System.out.println("Lista de servidores pronta!");
 				if (fileServersCount == 1) {
-					receberArquivo(fileServersList[0],portaTCPServidorArquivo,nomeArquivo);
+					receberArquivo(fileServersList[0]);
 				} else { //usuário clica no servidor de arquivos que ele quer
 					System.out.println("Else");
-					receberArquivo(fileServersList[0],portaTCPServidorArquivo,nomeArquivo); 
+					receberArquivo(fileServersList[0]); 
 				}
 			}
 			clientSocket.close();
@@ -59,15 +77,15 @@ public class Cliente {
 	
 	}
 
-	public static void receberArquivo(String [] ServidorArquivo, int portaServidorArquivo, String nomeArquivo) {
+	private void receberArquivo(String [] ServidorArquivo) {
 		// estabelece conexão com servidores de arquivo 
 		try {
 			
 			System.out.println("Solicitando arquivo ao servidor...");
 			System.out.println("Nome:  "+ServidorArquivo[0]);
 			System.out.println("IP:    "+ServidorArquivo[1]);
-			System.out.println("Porta: "+portaServidorArquivo);
-			Socket fileSocket = new Socket(ServidorArquivo[1], portaServidorArquivo);
+			System.out.println("Porta: "+portaTCPServidorArquivo);
+			Socket fileSocket = new Socket(ServidorArquivo[1], portaTCPServidorArquivo);
 			DataOutputStream fileRequest = new DataOutputStream(fileSocket.getOutputStream());
 			fileRequest.writeBytes(nomeArquivo + '\n');
 			// aguardando mensagem de retorno do servidor de arquivos

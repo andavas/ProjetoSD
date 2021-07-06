@@ -81,11 +81,27 @@ class Connection implements Runnable {
 
 }
 
-public class Servidor {
+class Servidor {
+	
+	private int timeout = 120 * 1000; // em milissegundos
+	private int porta = 8888;
+	
+	
+	public Servidor() {
+		run();
+	}
+	
+	public Servidor(int timeout, int porta) {
+		this.timeout = timeout;
+		this.porta = porta;
+		run();
+	}
 
-	public static void main(String[] args) {
-		int timeout = 120 * 1000; // em milissegundos
-		int porta = 8888;
+
+
+
+	private void run() {
+
 
 		try (ServerSocket arqSocket = new ServerSocket(porta)) {
 			arqSocket.setSoTimeout(timeout);

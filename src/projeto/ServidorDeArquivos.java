@@ -92,13 +92,28 @@ class ListenConnection implements Runnable {
 
 
 
-public class ServidorDeArquivos {
+class ServidorDeArquivos{
 
-	public static void main(String[] args) {
-		int timeout = 120 * 1000; // em milissegundos
-		int portaArq = 9999;
-		int portaComunicacao = 9876;
-		String caminho = "/media/Dados/Vídeos/Date A Live 3"; // caminho padrão do servidor de arquivos
+	private int timeout = 120 * 1000; // em milissegundos
+	private int portaArq = 9999;
+	private int portaComunicacao = 9876;
+	private String caminho = "/media/Dados/Vídeos/Date A Live 3"; // caminho padrão do servidor de arquivos
+	
+	public ServidorDeArquivos() {
+		run();
+	}
+	
+	public ServidorDeArquivos(int timeout, int portaArq, int portaComunicacao, String caminho) {
+		super();
+		this.timeout = timeout;
+		this.portaArq = portaArq;
+		this.portaComunicacao = portaComunicacao;
+		this.caminho = caminho;
+		run();
+	}
+
+	private void run() {
+		
 		System.out.println("Servidor de arquivos");
 		
 		Thread listener = new Thread(new ListenConnection(portaComunicacao,caminho));
