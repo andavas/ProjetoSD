@@ -63,7 +63,6 @@ class Connection implements Runnable {
 				response.writeInt(fileServersCount);
 				
 				// envia os nomes dos servidores encontrados
-				//TimeUnit.MILLISECONDS.sleep(2000);
 				for (int i = 0; i < fileServersCount; i++) {
 					response.write(infoFileServers[i].getBytes());
 				}

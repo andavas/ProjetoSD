@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.*;
 
 
+
 class FileConnection implements Runnable {
 
 	private Socket socket;
@@ -19,19 +20,31 @@ class FileConnection implements Runnable {
 		try {
 			BufferedReader request = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			nomeArquivo = request.readLine();
-			
 			System.out.println("Solicitando arquivo \"" + nomeArquivo + "\"");
 
-			File ptrArquivo = new File(caminho+"/"+nomeArquivo);
-			FileInputStream fis = new FileInputStream(ptrArquivo);
-			DataOutputStream response = new DataOutputStream(socket.getOutputStream());
-			byte[] arqBytes = new byte[(int) ptrArquivo.length()];
-			System.out.println("Lendo arquivo");
-			fis.read(arqBytes);
-			fis.close();
+			File ptrArquivo = new File(caminho+"/"+nomeArquivo); 
+			FileInputStream fis = new FileInputStream(ptrArquivo); 
+			OutputStream chunk = socket.getOutputStream(); 	
+			final int bufferLength = 1024;
+			byte[] arqBytes = new byte[bufferLength];
 			System.out.println("Enviando...");
-			response.write(arqBytes);
-			System.out.println("Enviado!");
+			int totalBytesRead = 0;
+			while (true) {  // lendo o arquivo
+				int bytesRead = fis.read(arqBytes);
+				
+				
+				if (bytesRead != -1) { // envia o perdaço do arquivo
+					chunk.write(arqBytes, 0, bytesRead);
+					chunk.flush();
+					totalBytesRead += bytesRead;
+					System.out.println("Enviando: "+totalBytesRead/1024+ "KB / "+ ptrArquivo.length()/1024+" KB");
+				} else { // fim do arquivo
+					System.out.println("Enviado!");
+					break;
+
+				}
+			}
+			fis.close();
 			socket.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -97,7 +110,7 @@ class ServidorDeArquivos{
 	private int timeout = 120 * 1000; // em milissegundos
 	private int portaArq = 9999;
 	private int portaComunicacao = 9876;
-	private String caminho = "/media/Dados/Vídeos/Date A Live 3"; // caminho padrão do servidor de arquivos
+	private String caminho = "/media/Dados/Imagens de Sistema (.iso)";//"/media/Dados/Vídeos/Date A Live 3"; // caminho padrão do servidor de arquivos
 	
 	public ServidorDeArquivos() {
 		run();
@@ -126,7 +139,6 @@ class ServidorDeArquivos{
 				Thread c = new Thread(new FileConnection(arqSocket.accept(),caminho));
 				c.start();
 			}
-			
 		} catch (FileNotFoundException e) {
 			System.err.println("Não foi possível encontrar o arquivo");
 		} catch (SocketTimeoutException e) {
@@ -135,5 +147,8 @@ class ServidorDeArquivos{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		// colocar listener aqui, depois da definição do socket tcp de recebimento de arquivos
+		// listener deve receber o caminho e a porta de comunicação associado àquela porta
 	}
 }
