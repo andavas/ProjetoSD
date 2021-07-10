@@ -28,16 +28,16 @@ public class QtdServerMaiorQZero extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        tblDadosServidor = new javax.swing.JTable();
+        btnSelecionar = new javax.swing.JButton();
+        btnVoltar = new javax.swing.JButton();
+        lblTitulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        jTable1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblDadosServidor.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        tblDadosServidor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Server 1", "xxxxx",  new Integer(111)},
                 {"Server 2", "yyyyy",  new Integer(222)},
@@ -56,16 +56,16 @@ public class QtdServerMaiorQZero extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblDadosServidor);
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jButton1.setText("Selecionar");
+        btnSelecionar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnSelecionar.setText("Selecionar");
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jButton2.setText("Voltar");
+        btnVoltar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnVoltar.setText("Voltar");
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel1.setText("Espaço do Cliente");
+        lblTitulo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblTitulo.setText("Espaço do Cliente");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -77,26 +77,26 @@ public class QtdServerMaiorQZero extends javax.swing.JFrame {
                 .addGap(33, 33, 33))
             .addGroup(layout.createSequentialGroup()
                 .addGap(140, 140, 140)
-                .addComponent(jLabel1)
+                .addComponent(lblTitulo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(72, 72, 72)
-                .addComponent(jButton1)
+                .addComponent(btnSelecionar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(btnVoltar)
                 .addGap(69, 69, 69))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addComponent(jLabel1)
+                .addComponent(lblTitulo)
                 .addGap(55, 55, 55)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(btnSelecionar)
+                    .addComponent(btnVoltar))
                 .addContainerGap(43, Short.MAX_VALUE))
         );
 
@@ -139,10 +139,10 @@ public class QtdServerMaiorQZero extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton btnSelecionar;
+    private javax.swing.JButton btnVoltar;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblTitulo;
+    private javax.swing.JTable tblDadosServidor;
     // End of variables declaration//GEN-END:variables
 }

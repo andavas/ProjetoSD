@@ -29,9 +29,9 @@ public class RespostaServidorZero extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        btnVoltar = new javax.swing.JButton();
+        lblTitulo = new javax.swing.JLabel();
+        jblQtdServerEncontrados = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Espaço cliente");
@@ -41,15 +41,15 @@ public class RespostaServidorZero extends javax.swing.JFrame {
         jPanel1.setName(""); // NOI18N
         jPanel1.setPreferredSize(new java.awt.Dimension(400, 324));
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton1.setText("Voltar");
+        btnVoltar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnVoltar.setText("Voltar");
 
-        jLabel3.setBackground(new java.awt.Color(204, 0, 204));
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel3.setText("Espaço do Cliente");
+        lblTitulo.setBackground(new java.awt.Color(204, 0, 204));
+        lblTitulo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblTitulo.setText("Espaço do Cliente");
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel1.setText("Servidores encontrados: 0");
+        jblQtdServerEncontrados.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jblQtdServerEncontrados.setText("Servidores encontrados: 0");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -57,27 +57,27 @@ public class RespostaServidorZero extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(151, 151, 151)
-                .addComponent(jLabel3)
+                .addComponent(lblTitulo)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(91, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btnVoltar)
                         .addGap(175, 175, 175))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(jblQtdServerEncontrados)
                         .addGap(75, 75, 75))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jLabel3)
+                .addComponent(lblTitulo)
                 .addGap(56, 56, 56)
-                .addComponent(jLabel1)
+                .addComponent(jblQtdServerEncontrados)
                 .addGap(43, 43, 43)
-                .addComponent(jButton1)
+                .addComponent(btnVoltar)
                 .addContainerGap(94, Short.MAX_VALUE))
         );
 
@@ -131,9 +131,9 @@ public class RespostaServidorZero extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton btnVoltar;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jblQtdServerEncontrados;
+    private javax.swing.JLabel lblTitulo;
     // End of variables declaration//GEN-END:variables
 }
