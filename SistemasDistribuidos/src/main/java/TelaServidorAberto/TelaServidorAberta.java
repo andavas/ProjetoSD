@@ -28,27 +28,27 @@ public class TelaServidorAberta extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        jblTitulo = new javax.swing.JLabel();
+        jblPorta = new javax.swing.JLabel();
+        btnFechar = new javax.swing.JButton();
+        txtPortaServidor = new javax.swing.JTextField();
+        jblTextoServidorAberto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel1.setText("Espaço do Servidor");
+        jblTitulo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jblTitulo.setText("Espaço do Servidor");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("Insira a porta (Padrão: 8888)");
+        jblPorta.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jblPorta.setText("Insira a porta (Padrão: 8888)");
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton1.setText("Fechar");
+        btnFechar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnFechar.setText("Fechar");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(51, 204, 0));
-        jLabel3.setText("Servidor Aberto!");
+        jblTextoServidorAberto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jblTextoServidorAberto.setForeground(new java.awt.Color(51, 204, 0));
+        jblTextoServidorAberto.setText("Servidor Aberto!");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -57,36 +57,36 @@ public class TelaServidorAberta extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jblPorta)
+                    .addComponent(txtPortaServidor, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(53, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(jblTitulo)
                         .addGap(122, 122, 122))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btnFechar)
                         .addGap(162, 162, 162))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
+                .addComponent(jblTextoServidorAberto)
                 .addGap(139, 139, 139))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addComponent(jLabel1)
+                .addComponent(jblTitulo)
                 .addGap(36, 36, 36)
-                .addComponent(jLabel2)
+                .addComponent(jblPorta)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtPortaServidor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
-                .addComponent(jLabel3)
+                .addComponent(jblTextoServidorAberto)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(btnFechar)
                 .addContainerGap(67, Short.MAX_VALUE))
         );
 
@@ -141,11 +141,11 @@ public class TelaServidorAberta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton btnFechar;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel jblPorta;
+    private javax.swing.JLabel jblTextoServidorAberto;
+    private javax.swing.JLabel jblTitulo;
+    private javax.swing.JTextField txtPortaServidor;
     // End of variables declaration//GEN-END:variables
 }
