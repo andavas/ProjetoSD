@@ -31,7 +31,7 @@ class Connection implements Runnable {
 			int timeout = 10 * 1000;
 			DatagramSocket requestSocket = new DatagramSocket();
 			requestSocket.setSoTimeout(timeout);
-			InetAddress IPAddress = InetAddress.getByName("192.168.1.255");
+			InetAddress IPAddress = InetAddress.getByName("239.0.0.1");
 			
 			// sendData contém a string com o nome do arquivo em binário
 			byte[] sendData = nomeArquivo.getBytes();
