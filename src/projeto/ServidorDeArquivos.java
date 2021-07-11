@@ -26,6 +26,12 @@ class FileConnection implements Runnable {
 			final int bufferLength = 1024;
 			byte[] arqBytes = new byte[bufferLength];
 			System.out.println("Enviando...");
+			
+			// enviando o tamanho do arquivo
+			DataOutputStream response =  new DataOutputStream(socket.getOutputStream());
+			response.writeLong(ptrArquivo.length());
+			
+			//iniciando a leitura do arquivo
 			int totalBytesRead = 0;
 			while (true) { // lendo o arquivo
 				int bytesRead = fis.read(arqBytes);
@@ -34,8 +40,8 @@ class FileConnection implements Runnable {
 					chunk.write(arqBytes, 0, bytesRead);
 					chunk.flush();
 					totalBytesRead += bytesRead;
-					System.out.println(
-							"Enviando: " + totalBytesRead / 1024 + "KB / " + ptrArquivo.length() / 1024 + " KB");
+					//System.out.println(
+						//	"Enviando: " + totalBytesRead / 1024 + "KB / " + ptrArquivo.length() / 1024 + " KB");
 				} else { // fim do arquivo
 					System.out.println("Enviado!");
 					break;
@@ -115,7 +121,7 @@ class ServidorDeArquivos {
 	private int timeout = 120 * 1000; // em milissegundos
 	private int portaArq = 9999;
 	private int portaComunicacao = 9876;
-	private String caminho = "/media/Dados/Imagens de Sistema (.iso)";// "/media/Dados/Vídeos/Date A Live 3"; // caminho
+	private String caminho = "/media/Dados/Músicas/Rock/Dragonforce - Discografia/2014 - Most Overload";// "/media/Dados/Vídeos/Date A Live 3"; // caminho
 																		// padrão do servidor de arquivos
 
 	public ServidorDeArquivos() {
