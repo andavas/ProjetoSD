@@ -5,6 +5,8 @@
  */
 package RespostaServidorMaiorZero;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Usuario
@@ -27,36 +29,13 @@ public class QtdServerMaiorQZero extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblDadosServidor = new javax.swing.JTable();
         btnSelecionar = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
         lblTitulo = new javax.swing.JLabel();
+        jRadioButton1 = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
-
-        tblDadosServidor.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        tblDadosServidor.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"Server 1", "xxxxx",  new Integer(111)},
-                {"Server 2", "yyyyy",  new Integer(222)},
-                {"Server 3", "zzzzzz",  new Integer(333)},
-                {"Server 4", "wwww",  new Integer(444)}
-            },
-            new String [] {
-                "Nome do Servidor", "IP", "Porta"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(tblDadosServidor);
 
         btnSelecionar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnSelecionar.setText("Selecionar");
@@ -67,33 +46,36 @@ public class QtdServerMaiorQZero extends javax.swing.JFrame {
         lblTitulo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblTitulo.setText("Espaço do Cliente");
 
+        jRadioButton1.setText("Servidor 1 - IP: xxx - Porta: 111");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(35, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(140, 140, 140)
-                .addComponent(lblTitulo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(72, 72, 72)
                 .addComponent(btnSelecionar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
                 .addComponent(btnVoltar)
                 .addGap(69, 69, 69))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(140, 140, 140)
+                        .addComponent(lblTitulo))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(88, 88, 88)
+                        .addComponent(jRadioButton1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(lblTitulo)
-                .addGap(55, 55, 55)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jRadioButton1)
+                .addGap(156, 156, 156)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSelecionar)
                     .addComponent(btnVoltar))
@@ -141,8 +123,7 @@ public class QtdServerMaiorQZero extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSelecionar;
     private javax.swing.JButton btnVoltar;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JTable tblDadosServidor;
     // End of variables declaration//GEN-END:variables
 }

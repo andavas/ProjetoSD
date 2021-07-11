@@ -1,13 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/**
- *
- * @author Usuario
- */
+import javax.swing.JOptionPane;
+
 public class Cliente extends javax.swing.JFrame {
 
     /**
@@ -44,6 +37,21 @@ public class Cliente extends javax.swing.JFrame {
 
         btnSolicitar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnSolicitar.setText("Solicitar");
+        btnSolicitar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSolicitarMouseClicked(evt);
+            }
+        });
+        btnSolicitar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSolicitarActionPerformed(evt);
+            }
+        });
+        btnSolicitar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnSolicitarKeyPressed(evt);
+            }
+        });
 
         lblTitulo.setBackground(new java.awt.Color(204, 0, 204));
         lblTitulo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -97,6 +105,19 @@ public class Cliente extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSolicitarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSolicitarMouseClicked
+        JOptionPane.showMessageDialog(null, "Não existe servidores disponíveis!", "Servidores disponíveis", JOptionPane.ERROR_MESSAGE);
+        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }//GEN-LAST:event_btnSolicitarMouseClicked
+
+    private void btnSolicitarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSolicitarKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSolicitarKeyPressed
+
+    private void btnSolicitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSolicitarActionPerformed
 
     /**
      * @param args the command line arguments

@@ -102,6 +102,11 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Solicitar"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnSolicitarMouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSolicitarActionPerformed"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btnSolicitarKeyPressed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblTitulo">
           <Properties>
