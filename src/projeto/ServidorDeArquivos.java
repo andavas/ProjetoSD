@@ -26,12 +26,12 @@ class FileConnection implements Runnable {
 			final int bufferLength = 1024;
 			byte[] arqBytes = new byte[bufferLength];
 			System.out.println("Enviando...");
-			
+
 			// enviando o tamanho do arquivo
-			DataOutputStream response =  new DataOutputStream(socket.getOutputStream());
+			DataOutputStream response = new DataOutputStream(socket.getOutputStream());
 			response.writeLong(ptrArquivo.length());
-			
-			//iniciando a leitura do arquivo
+
+			// iniciando a leitura do arquivo
 			int totalBytesRead = 0;
 			while (true) { // lendo o arquivo
 				int bytesRead = fis.read(arqBytes);
@@ -40,8 +40,9 @@ class FileConnection implements Runnable {
 					chunk.write(arqBytes, 0, bytesRead);
 					chunk.flush();
 					totalBytesRead += bytesRead;
-					//System.out.println(
-						//	"Enviando: " + totalBytesRead / 1024 + "KB / " + ptrArquivo.length() / 1024 + " KB");
+					// System.out.println(
+					// "Enviando: " + totalBytesRead / 1024 + "KB / " + ptrArquivo.length() / 1024 +
+					// " KB");
 				} else { // fim do arquivo
 					System.out.println("Enviado!");
 					break;
@@ -61,16 +62,19 @@ class ListenConnection implements Runnable {
 	/*
 	 * Vai escutar as solicitações UDP broadcast que vierem do servidor principal
 	 */
+	private int timeout;
 	private int portaComunicacao;
 	private int portaArq;
 	private String caminho;
+	
 
 	public ListenConnection(int porta, String caminho) {
 		this.portaComunicacao = porta;
 		this.caminho = caminho;
 	}
 
-	public ListenConnection(int porta, int portaArq, String caminho) {
+	public ListenConnection(int porta, int portaArq, String caminho, int timeout) {
+		this.timeout = timeout;
 		this.portaComunicacao = porta;
 		this.portaArq = portaArq;
 		this.caminho = caminho;
@@ -83,10 +87,11 @@ class ListenConnection implements Runnable {
 		try (MulticastSocket serverSocket = new MulticastSocket(portaComunicacao)) {
 
 			serverSocket.joinGroup(InetAddress.getByName("239.0.0.1"));
-			byte[] receiveData = new byte[1024];
-			byte[] sendData = new byte[1024];
-
+			serverSocket.setSoTimeout(timeout);
 			while (true) {
+				byte[] receiveData = new byte[1024];
+				byte[] sendData = new byte[1024];
+
 				DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
 				System.out.println("Aguardando solicitação");
 				serverSocket.receive(receivePacket); // recebe broadcast UDP do servidor principal
@@ -110,6 +115,9 @@ class ListenConnection implements Runnable {
 					System.out.println("Arquivo não encontrado");
 				}
 			}
+		} catch (SocketTimeoutException e) {
+			System.err.println("Tempo máximo de espera atingido!");
+			System.err.println("Serviço UDP encerrado");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -121,8 +129,10 @@ class ServidorDeArquivos {
 	private int timeout = 120 * 1000; // em milissegundos
 	private int portaArq = 9999;
 	private int portaComunicacao = 9876;
-	private String caminho = "/media/Dados/Músicas/Rock/Dragonforce - Discografia/2014 - Most Overload";// "/media/Dados/Vídeos/Date A Live 3"; // caminho
-																		// padrão do servidor de arquivos
+	private String caminho = "/media/Dados/Músicas/Rock/Dragonforce - Discografia/2014 - Most Overload";// "/media/Dados/Vídeos/Date
+																										// A Live 3"; //
+																										// caminho
+	// padrão do servidor de arquivos
 
 	public ServidorDeArquivos() {
 		run();
@@ -141,31 +151,48 @@ class ServidorDeArquivos {
 
 		System.out.println("Servidor de arquivos");
 
-		while (true) {
-
-			try (ServerSocket arqSocket = new ServerSocket(portaArq)) { // cria socket tcp
-				Thread listener = new Thread(new ListenConnection(portaComunicacao, portaArq, caminho)); // cria socket
-																											// udp
-				listener.start();
-				arqSocket.setSoTimeout(timeout);
-
+		portaArq = checkPortaDisponivel();
+		
+		try (ServerSocket arqSocket = new ServerSocket(portaArq)) { // cria socket tcp
+			Thread listener = new Thread(new ListenConnection(portaComunicacao, portaArq, caminho, timeout)); // cria socket
+																										// udp
+			listener.start();
+			System.out.println("Thread para a porta " + portaArq + " criada");
+			arqSocket.setSoTimeout(timeout);
+			while (true) {
 				System.out.println("Aguardando conexão de transferência de arquivos");
 				Thread c = new Thread(new FileConnection(arqSocket.accept(), caminho));
 				c.start();
+			}
+
+		} catch (BindException e) { // endereços em uso > tenta uma nova porta
+			portaArq++;
+		} catch (FileNotFoundException e) {
+			System.err.println("Não foi possível encontrar o arquivo");
+		} catch (SocketTimeoutException e) {
+			System.err.println("Tempo máximo de espera atingido!");
+			System.err.println("Serviço TCP encerrado");
+		} catch (IOException e) {
+			e.printStackTrace();
+
+		}
+
+	}
+
+	private int checkPortaDisponivel() {
+		int porta = portaArq;
+		while (true) {
+			try {
+				ServerSocket s = new ServerSocket(porta);
+				s.close();
 			} catch (BindException e) { // endereços em uso > tenta uma nova porta
-				portaArq++;
-			} catch (FileNotFoundException e) {
-				System.err.println("Não foi possível encontrar o arquivo");
-				break;
-			} catch (SocketTimeoutException e) {
-				System.err.println("Tempo máximo de espera atingido!");
-				System.err.println("Serviço encerrado");
-				break;
-			} catch (IOException e) {
+				porta++;
+			} catch (Exception e) {
 				e.printStackTrace();
 				break;
 			}
-
+			return porta;
 		}
+		return -1;
 	}
 }

@@ -4,12 +4,12 @@
  * and open the template in the editor.
  */
 package TelaServidorAberto;
-
+import  javax.swing.*;
 /**
  *
  * @author Usuario
  */
-public class TelaServidorAberta extends javax.swing.JFrame {
+public class TelaServidorAberta extends JFrame {
 
     /**
      * Creates new form HomeFechado
@@ -27,62 +27,62 @@ public class TelaServidorAberta extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jblTitulo = new javax.swing.JLabel();
-        jblPorta = new javax.swing.JLabel();
-        btnFechar = new javax.swing.JButton();
-        txtPortaServidor = new javax.swing.JTextField();
-        jblTextoServidorAberto = new javax.swing.JLabel();
+        jPanel1 = new JPanel();
+        jblTitulo = new JLabel();
+        jblPorta = new JLabel();
+        btnFechar = new JButton();
+        txtPortaServidor = new JTextField();
+        jblTextoServidorAberto = new JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        jblTitulo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jblTitulo.setFont(new Font("Tahoma", 0, 18)); // NOI18N
         jblTitulo.setText("Espaço do Servidor");
 
-        jblPorta.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jblPorta.setFont(new Font("Tahoma", 0, 14)); // NOI18N
         jblPorta.setText("Insira a porta (Padrão: 8888)");
 
-        btnFechar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnFechar.setFont(new Font("Tahoma", 0, 14)); // NOI18N
         btnFechar.setText("Fechar");
 
-        jblTextoServidorAberto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jblTextoServidorAberto.setForeground(new java.awt.Color(51, 204, 0));
+        jblTextoServidorAberto.setFont(new Font("Tahoma", 0, 14)); // NOI18N
+        jblTextoServidorAberto.setForeground(new Color(51, 204, 0));
         jblTextoServidorAberto.setText("Servidor Aberto!");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addComponent(jblPorta)
-                    .addComponent(txtPortaServidor, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPortaServidor, GroupLayout.PREFERRED_SIZE, 327, GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(53, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addGroup(GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jblTitulo)
                         .addGap(122, 122, 122))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(btnFechar)
                         .addGap(162, 162, 162))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jblTextoServidorAberto)
                 .addGap(139, 139, 139))
         );
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addComponent(jblTitulo)
                 .addGap(36, 36, 36)
                 .addComponent(jblPorta)
                 .addGap(18, 18, 18)
-                .addComponent(txtPortaServidor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtPortaServidor, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(jblTextoServidorAberto)
                 .addGap(18, 18, 18)
@@ -90,15 +90,15 @@ public class TelaServidorAberta extends javax.swing.JFrame {
                 .addContainerGap(67, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -109,31 +109,10 @@ public class TelaServidorAberta extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaServidorAberta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaServidorAberta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaServidorAberta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaServidorAberta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
+
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new TelaServidorAberta().setVisible(true);
             }
@@ -141,11 +120,11 @@ public class TelaServidorAberta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnFechar;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel jblPorta;
-    private javax.swing.JLabel jblTextoServidorAberto;
-    private javax.swing.JLabel jblTitulo;
-    private javax.swing.JTextField txtPortaServidor;
+    private JButton btnFechar;
+    private JPanel jPanel1;
+    private JLabel jblPorta;
+    private JLabel jblTextoServidorAberto;
+    private JLabel jblTitulo;
+    private JTextField txtPortaServidor;
     // End of variables declaration//GEN-END:variables
 }
