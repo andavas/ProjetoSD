@@ -1,13 +1,4 @@
 package projeto;
-public class MainServidor {
-
-	public static void main(String[] args){
-		new Servidor();
-		
-	}
-
-}
-/*package projeto;
 
 import java.awt.*;
 import java.io.*;
@@ -15,102 +6,7 @@ import java.net.*;
 
 import javax.swing.*;
 
-class Servidor extends JFrame {
 
-    private JButton btnLigaDesliga;
-    private JPanel janPrincipal;
-    private JLabel lblPorta;
-    private JLabel lblTextoServidorAberto;
-    private JLabel lblTitulo;
-    private JTextField txtPortaServidor;
-    private BackServidor servidor;
-
-	public Servidor() {
-		super("Servidor");
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setMinimumSize(new Dimension(320, 200));
-		setLocationRelativeTo(null);
-		run();
-		setVisible(true);
-	}
-	public void run() {
-		janPrincipal = new JPanel();
-        lblTitulo = new JLabel();
-        lblPorta = new JLabel();
-        btnLigaDesliga = new JButton();
-        txtPortaServidor = new JTextField();
-        lblTextoServidorAberto = new JLabel();
-
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
-
-        lblTitulo.setFont(new Font("Tahoma", 0, 18)); // NOI18N
-        lblTitulo.setText("Espaço do Servidor");
-
-        lblPorta.setFont(new Font("Tahoma", 0, 14)); // NOI18N
-        lblPorta.setText("Insira a porta (Padrão: 8888)");
-
-        btnLigaDesliga.setFont(new Font("Tahoma", 0, 14)); // NOI18N
-        btnLigaDesliga.setText("Fechar");
-
-        lblTextoServidorAberto.setFont(new Font("Tahoma", 0, 14)); // NOI18N
-        lblTextoServidorAberto.setForeground(new Color(51, 204, 0));
-        lblTextoServidorAberto.setText("Servidor Aberto!");
-
-        GroupLayout jPanel1Layout = new GroupLayout(janPrincipal);
-        janPrincipal.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(lblPorta)
-                    .addComponent(txtPortaServidor, GroupLayout.PREFERRED_SIZE, 327, GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(53, Short.MAX_VALUE))
-            .addGroup(GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addGroup(GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblTitulo)
-                        .addGap(122, 122, 122))
-                    .addGroup(GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnLigaDesliga)
-                        .addGap(162, 162, 162))))
-            .addGroup(GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblTextoServidorAberto)
-                .addGap(139, 139, 139))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(lblTitulo)
-                .addGap(36, 36, 36)
-                .addComponent(lblPorta)
-                .addGap(18, 18, 18)
-                .addComponent(txtPortaServidor, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(lblTextoServidorAberto)
-                .addGap(18, 18, 18)
-                .addComponent(btnLigaDesliga)
-                .addContainerGap(67, Short.MAX_VALUE))
-        );
-
-        GroupLayout layout = new GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addComponent(janPrincipal, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addComponent(janPrincipal, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        pack();
-	}
-}
 class Connection implements Runnable {
 
 	private Socket connectionSocket;
@@ -189,17 +85,17 @@ class Connection implements Runnable {
 
 }
 
-class BackServidor {
+class Servidor {
 	
 	private int timeout = 120 * 1000; // em milissegundos
 	private int porta = 8888;
 	
 	
-	public BackServidor() {
+	public Servidor() {
 		run();
 	}
 	
-	public BackServidor(int timeout, int porta) {
+	public Servidor(int timeout, int porta) {
 		this.timeout = timeout;
 		this.porta = porta;
 		run();
@@ -210,10 +106,9 @@ class BackServidor {
 
 	private void run() {
 
-
 		try (ServerSocket arqSocket = new ServerSocket(porta)) {
 			arqSocket.setSoTimeout(timeout);
-
+			System.out.println("SERVIDOR PRINCIPAL");
 			while (true) {
 				System.out.println("Aguardando conexão");
 				Thread c = new Thread(new Connection(arqSocket.accept()));
@@ -221,6 +116,8 @@ class BackServidor {
 			}
 		} catch (FileNotFoundException e) {
 			System.err.println("Não foi possível encontrar o arquivo");
+		} catch (BindException e) { // endereços em uso > tenta uma nova porta
+			System.err.println("O servidor principal já está rodando!");
 		} catch (SocketTimeoutException e) {
 			System.err.println("Tempo máximo de espera atingido!");
 			System.err.println("Serviço encerrado");
@@ -230,4 +127,14 @@ class BackServidor {
 
 	}
 }
-*/
+
+public class MainServidor {
+
+	public static void main(String[] args){
+		new Servidor();
+		
+	}
+
+}
+
+
