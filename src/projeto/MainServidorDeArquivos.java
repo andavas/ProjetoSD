@@ -99,8 +99,8 @@ class ListenConnection implements Runnable {
 				{
 					InetAddress IPAddress = receivePacket.getAddress(); // pega o ip do servidor principal
 					int port = receivePacket.getPort(); // pega a porta do servidor principal
-					String identification = InetAddress.getLocalHost().getHostName() + "-" + IPAddress.getHostName()
-							+ ":" + portaArq + "\n"; // pega o nome do servidor de
+					String identification = InetAddress.getLocalHost().getHostName() + "&" + IPAddress.getHostName()
+							+ "*" + portaArq + "\n"; // pega o nome do servidor de
 
 					sendData = identification.getBytes();
 					System.out.println("Enviando resposta ao servidor principal!");
@@ -112,6 +112,7 @@ class ListenConnection implements Runnable {
 				}
 			}
 		} catch (SocketTimeoutException e) {
+			System.err.println("Tempo máximo de espera atingido!");
 			System.err.println("Serviço UDP encerrado");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -169,7 +170,6 @@ class ServidorDeArquivos {
 		} catch (FileNotFoundException e) {
 			System.err.println("Não foi possível encontrar o arquivo");
 		} catch (SocketTimeoutException e) {
-			System.err.println("Tempo máximo de espera atingido!");
 			System.err.println("Serviço TCP encerrado");
 		} catch (IOException e) {
 			e.printStackTrace();

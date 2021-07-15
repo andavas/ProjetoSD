@@ -292,9 +292,9 @@ class BackCliente {
 		String temp;
 		for (int i = 0; i < fileServersCount; i++) {
 			temp = response.readLine();
-			this.fileServersList[i][0] = temp.substring(0, temp.indexOf("-"));
-			this.fileServersList[i][1] = temp.substring(temp.indexOf("-") + 1, temp.indexOf(":"));
-			this.fileServersList[i][2] = temp.substring(temp.indexOf(":") + 1);
+			this.fileServersList[i][0] = temp.substring(0, temp.indexOf("&"));
+			this.fileServersList[i][1] = temp.substring(temp.indexOf("&") + 1, temp.indexOf("*"));
+			this.fileServersList[i][2] = temp.substring(temp.indexOf("*") + 1);
 		}
 		return this.fileServersList;
 	}
